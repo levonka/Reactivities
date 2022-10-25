@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Header, List } from 'semantic-ui-react';
+import { List } from 'semantic-ui-react';
 import { IActivity } from '../models/activity';
 import axios from 'axios';
+import NavBar from './NavBar';
 
 function App() {
     const [activities, setActivities] = useState<IActivity[]>([]);
@@ -14,7 +15,8 @@ function App() {
 
     return (
         <div className="App">
-            <Header as="h2" icon="users" content="Reactivities" />
+            <NavBar />
+
             <List className="App-header">
                 {activities.map(activity => (
                     <List.Item key={activity.id}>{activity.title}</List.Item>
