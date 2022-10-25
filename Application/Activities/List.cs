@@ -20,7 +20,6 @@ public class List
 
         public async Task<List<Activity>> Handle(Query request, CancellationToken cancellationToken)
         {
-            Console.WriteLine("WHATTTT?");
             return await _context.Activities.ToListAsync();
         }
     }
