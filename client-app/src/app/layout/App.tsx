@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { List } from 'semantic-ui-react';
+import React, { Fragment, useEffect, useState } from 'react';
+import { Container, List } from 'semantic-ui-react';
 import { IActivity } from '../models/activity';
 import axios from 'axios';
 import NavBar from './NavBar';
@@ -14,15 +14,17 @@ function App() {
     }, []);
 
     return (
-        <div className="App">
+        <Fragment>
             <NavBar />
 
-            <List className="App-header">
-                {activities.map(activity => (
-                    <List.Item key={activity.id}>{activity.title}</List.Item>
-                ))}
-            </List>
-        </div>
+            <Container style={{ marginTop: '7em' }}>
+                <List className="App-header">
+                    {activities.map(activity => (
+                        <List.Item key={activity.id}>{activity.title}</List.Item>
+                    ))}
+                </List>
+            </Container>
+        </Fragment>
     );
 }
 
