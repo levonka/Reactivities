@@ -7,6 +7,7 @@ import axios from 'axios';
 
 function App() {
     const [activities, setActivities] = useState<IActivity[]>([]);
+    const [selectedActivity, setSelectedActivity] = useState<IActivity | null>(null);
 
     useEffect(() => {
         axios.get<IActivity[]>('http://localhost:5000/api/activities').then(response => {
@@ -14,12 +15,25 @@ function App() {
         });
     }, []);
 
+    function handleSelectActivity(id: string): void {
+        setSelectedActivity(activities.find(x => x.id === id) || null);
+    }
+
+    function handleCancelSelectActivity() {
+        setSelectedActivity(null);
+    }
+
     return (
         <Fragment>
             <NavBar />
 
             <Container style={{ marginTop: '7em' }}>
-                <ActivityDashboard activities={activities} />
+                <ActivityDashboard
+                    activities={activities}
+                    selectedActivity={selectedActivity}
+                    selectActivity={handleSelectActivity}
+                    cancelSelectActivity={handleCancelSelectActivity}
+                />
             </Container>
         </Fragment>
     );

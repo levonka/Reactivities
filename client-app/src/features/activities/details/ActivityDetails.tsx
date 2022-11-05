@@ -3,9 +3,10 @@ import { IActivity } from '../../../app/models/activity';
 
 interface Props {
     activity: IActivity;
+    cancelSelectActivity: () => void;
 }
 
-export default function ActivityDetails({ activity }: Props) {
+export default function ActivityDetails({ activity, cancelSelectActivity }: Props) {
     return (
         <Card fluid>
             <Image src={`/assets/categoryImages/${activity.category}.jpg`} />
@@ -17,7 +18,12 @@ export default function ActivityDetails({ activity }: Props) {
             <Card.Content>
                 <Button.Group widths="2">
                     <Button basic color="blue" content="Edit"></Button>
-                    <Button basic color="grey" content="Cancel"></Button>
+                    <Button
+                        basic
+                        color="grey"
+                        content="Cancel"
+                        onClick={() => cancelSelectActivity()}
+                    ></Button>
                 </Button.Group>
             </Card.Content>
         </Card>
