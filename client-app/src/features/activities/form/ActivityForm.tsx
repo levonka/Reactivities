@@ -56,8 +56,18 @@ export default function ActivityForm({
                     value={activity.category}
                     onChange={handleInputChange}
                 />
-                <Form.Input placeholder="Date" value={activity.date} onChange={handleInputChange} />
-                <Form.Input placeholder="City" value={activity.city} onChange={handleInputChange} />
+                <Form.Input
+                    placeholder="Date"
+                    name="date"
+                    value={activity.date}
+                    onChange={handleInputChange}
+                />
+                <Form.Input
+                    placeholder="City"
+                    name="city"
+                    value={activity.city}
+                    onChange={handleInputChange}
+                />
                 <Form.Input
                     placeholder="Venue"
                     name="venue"
