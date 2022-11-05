@@ -8,6 +8,7 @@ import axios from 'axios';
 function App() {
     const [activities, setActivities] = useState<IActivity[]>([]);
     const [selectedActivity, setSelectedActivity] = useState<IActivity | null>(null);
+    const [editMode, setEditMode] = useState(false);
 
     useEffect(() => {
         axios.get<IActivity[]>('http://localhost:5000/api/activities').then(response => {
@@ -23,9 +24,18 @@ function App() {
         setSelectedActivity(null);
     }
 
+    function handleFormOpen(id?: string) {
+        id ? handleSelectActivity(id) : handleCancelSelectActivity();
+        setEditMode(true);
+    }
+
+    function handleFormClose() {
+        setEditMode(false);
+    }
+
     return (
         <Fragment>
-            <NavBar />
+            <NavBar openForm={handleFormOpen} />
 
             <Container style={{ marginTop: '7em' }}>
                 <ActivityDashboard
@@ -33,6 +43,9 @@ function App() {
                     selectedActivity={selectedActivity}
                     selectActivity={handleSelectActivity}
                     cancelSelectActivity={handleCancelSelectActivity}
+                    editMode={editMode}
+                    openForm={handleFormOpen}
+                    closeForm={handleFormClose}
                 />
             </Container>
         </Fragment>
