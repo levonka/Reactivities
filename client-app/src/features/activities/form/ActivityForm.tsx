@@ -59,6 +59,7 @@ export default function ActivityForm({
                 <Form.Input
                     placeholder="Date"
                     name="date"
+                    type="date"
                     value={activity.date}
                     onChange={handleInputChange}
                 />

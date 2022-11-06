@@ -3,8 +3,8 @@ import { Container } from 'semantic-ui-react';
 import NavBar from './NavBar';
 import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
 import { IActivity } from '../models/activity';
-import axios from 'axios';
 import { v4 as uuid } from 'uuid';
+import agent from '../api/agent';
 
 function App() {
     const [activities, setActivities] = useState<IActivity[]>([]);
@@ -12,8 +12,14 @@ function App() {
     const [editMode, setEditMode] = useState(false);
 
     useEffect(() => {
-        axios.get<IActivity[]>('http://localhost:5000/api/activities').then(response => {
-            setActivities(response.data);
+        agent.Activities.list().then(data => {
+            let activities: IActivity[] = data.map(activity => {
+                activity.date = activity.date.split('T')[0];
+
+                return activity;
+            });
+
+            setActivities(activities);
         });
     }, []);
 
