@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite';
 
 export default observer(function NavBar() {
     const { activityStore } = useStore();
+    const { openForm } = activityStore;
 
     return (
         <Menu inverted fixed="top">
@@ -14,11 +15,7 @@ export default observer(function NavBar() {
                 </Menu.Item>
                 <Menu.Item name="Activities" />
                 <Menu.Item>
-                    <Button
-                        positive
-                        content="Create Activity"
-                        onClick={() => activityStore.openForm()}
-                    />
+                    <Button positive content="Create Activity" onClick={() => openForm()} />
                 </Menu.Item>
             </Container>
         </Menu>
