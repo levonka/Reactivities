@@ -9,6 +9,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from './features/home/HomePage';
 import ActivityDashboard from './features/activities/dashboard/ActivityDashboard';
 import ActivityForm from './features/activities/form/ActivityForm';
+import ActivityDetails from './features/activities/details/ActivityDetails';
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: 'activities',
                 element: <ActivityDashboard />,
+            },
+            {
+                path: 'activities/:id',
+                element: <ActivityDetails />,
             },
             {
                 path: 'createActivity',
