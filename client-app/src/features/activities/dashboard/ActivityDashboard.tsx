@@ -7,11 +7,13 @@ import LoadingComponent from '../../../app/layout/LoadingComponent';
 
 export default observer(function ActivityDashboard() {
     const { activityStore } = useStore();
-    const { loadActivities, loadingInitial } = activityStore;
+    const { loadActivities, loadingInitial, activityRegistry } = activityStore;
 
     useEffect(() => {
-        loadActivities();
-    }, [activityStore]);
+        if (activityRegistry.size <= 1) {
+            loadActivities();
+        }
+    }, [activityRegistry.size, loadActivities]);
 
     if (loadingInitial) {
         return <LoadingComponent content="Loading app" />;

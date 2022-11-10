@@ -13,13 +13,12 @@ import ActivityDetails from './features/activities/details/ActivityDetails';
 
 const router = createBrowserRouter([
     {
-        path: '/',
+        path: '',
+        element: <HomePage />,
+    },
+    {
         element: <App />,
         children: [
-            {
-                path: '',
-                element: <HomePage />,
-            },
             {
                 path: 'activities',
                 element: <ActivityDashboard />,
@@ -39,6 +38,18 @@ const router = createBrowserRouter([
         ],
     },
 ]);
+/*
+const router = createBrowserRouter(
+    createRoutesFromElements(
+        <Route path="/" element={<App />}>
+            <Route path="" element={<HomePage />} />
+            <Route path="activities" element={<ActivityDashboard />} />
+            <Route path="activities/:id" element={<ActivityDetails />} />
+            <Route path="createActivity" element={<ActivityForm />} />
+            <Route path="manage/:id" element={<ActivityForm />} />
+        </Route>
+    )
+);*/
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
