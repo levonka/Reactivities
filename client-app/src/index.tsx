@@ -32,6 +32,10 @@ const router = createBrowserRouter([
                 path: 'createActivity',
                 element: <ActivityForm />,
             },
+            {
+                path: '/manage/:id',
+                element: <ActivityForm />,
+            },
         ],
     },
 ]);
