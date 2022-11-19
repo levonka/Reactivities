@@ -6,7 +6,7 @@ public class Result<T>
     public T? Value { get; set; }
     public string? Error { get; set; }
 
-    public static Result<T> Success(T value)
+    public static Result<T> Success(T? value)
     {
         return new Result<T> { IsSuccess = true, Value = value };
     }

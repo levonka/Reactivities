@@ -1,4 +1,5 @@
 using API.Extensions;
+using API.Middleware;
 using Application.Activities;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -37,6 +38,8 @@ using (var scope = app.Services.CreateScope())
         logger.LogError(ex, "An error occured during migration");
     }
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
