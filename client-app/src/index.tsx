@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'semantic-ui-css/semantic.min.css';
 import 'react-calendar/dist/Calendar.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 import './app/layout/styles.css';
 import App from './app/layout/App';
 import reportWebVitals from './reportWebVitals';
@@ -11,6 +12,7 @@ import HomePage from './features/home/HomePage';
 import ActivityDashboard from './features/activities/dashboard/ActivityDashboard';
 import ActivityForm from './features/activities/form/ActivityForm';
 import ActivityDetails from './features/activities/details/ActivityDetails';
+import TestErrors from './features/errors/TestError';
 
 const router = createBrowserRouter([
     {
@@ -35,6 +37,10 @@ const router = createBrowserRouter([
             {
                 path: '/manage/:id',
                 element: <ActivityForm />,
+            },
+            {
+                path: '/errors',
+                element: <TestErrors />,
             },
         ],
     },
