@@ -7,7 +7,7 @@ export default class ActivityStore {
     selectedActivity: IActivity | null = null;
     editMode = false;
     loading = false;
-    loadingInitial = true;
+    loadingInitial = false;
 
     constructor() {
         makeAutoObservable(this);
