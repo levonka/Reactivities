@@ -60,10 +60,10 @@ export default class ActivityStore {
             try {
                 activity = await agent.Activities.details(id);
 
+                this.setActivity(activity);
                 runInAction(() => {
                     this.selectedActivity = activity as IActivity;
                 });
-                this.setActivity(activity);
                 this.setLoadingInitial(false);
 
                 return activity;
