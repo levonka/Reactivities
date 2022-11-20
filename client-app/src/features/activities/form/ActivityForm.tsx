@@ -1,11 +1,11 @@
-import { Button, FormField, Label, Segment } from 'semantic-ui-react';
+import { Button, Segment } from 'semantic-ui-react';
 import { useEffect, useState } from 'react';
 import { useStore } from '../../../app/stores/store';
 import { observer } from 'mobx-react-lite';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { IActivity } from '../../../app/models/activity';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
-import { Form, Formik, Field, ErrorMessage } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import MyTextInput from '../../../app/common/form/MyTextInput';
 import MyTextArea from '../../../app/common/form/MyTextArea';
@@ -19,12 +19,12 @@ export default observer(function ActivityForm() {
     const { createActivity, updateActivity, loading, loadActivity, loadingInitial } = activityStore;
     const { id } = useParams<{ id: string }>();
 
-    const [activity, setActivity] = useState({
+    const [activity, setActivity] = useState<IActivity>({
         id: '',
         title: '',
         category: '',
         description: '',
-        date: '',
+        date: null,
         city: '',
         venue: '',
     });
