@@ -1,13 +1,24 @@
 import { IServerError } from '../models/serverError';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, reaction } from 'mobx';
 
 export default class CommonStore {
     error: IServerError | null = null;
-    token: string | null = null;
+    token: string | null = window.localStorage.getItem('jwt');
     appLoaded = false;
 
     constructor() {
         makeAutoObservable(this);
+
+        reaction(
+            () => this.token,
+            token => {
+                if (token) {
+                    window.localStorage.setItem('jwt', token);
+                } else {
+                    window.localStorage.removeItem('jwt');
+                }
+            }
+        );
     }
 
     setServerError = (error: IServerError) => {
@@ -15,10 +26,7 @@ export default class CommonStore {
     };
 
     setToken = (token: string | null) => {
-        if (token) {
-            window.localStorage.setItem('jwt', token);
-            this.token = token;
-        }
+        this.token = token;
     };
 
     setAppLoaded = () => {
