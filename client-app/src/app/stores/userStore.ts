@@ -29,6 +29,5 @@ export default class UserStore {
         store.commonStore.setToken(null);
         window.localStorage.removeItem('jwt');
         this.user = null;
-        // redirect to /
     };
 }
