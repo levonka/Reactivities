@@ -2,8 +2,8 @@ import { useField } from 'formik';
 import { Form, Label } from 'semantic-ui-react';
 
 interface Props {
-    placeholder: string;
     name: string;
+    placeholder: string;
     type?: string;
     label?: string;
 }
