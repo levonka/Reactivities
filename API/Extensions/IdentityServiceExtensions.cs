@@ -1,3 +1,4 @@
+using API.Services;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 using Persistence;
@@ -19,6 +20,7 @@ public static class IdentityServiceExtensions
             .AddSignInManager<SignInManager<AppUser>>();
 
         services.AddAuthentication();
+        services.AddScoped<TokenService>();
 
         return services;
     }
