@@ -40,4 +40,16 @@ export default class UserStore {
             console.log(error);
         }
     };
+
+    register = async (creds: IUserFormValues) => {
+        try {
+            const user = await agent.Account.register(creds);
+
+            store.commonStore.setToken(user.token);
+            runInAction(() => (this.user = user));
+            store.modalStore.closeModal();
+        } catch (error) {
+            throw error;
+        }
+    };
 }

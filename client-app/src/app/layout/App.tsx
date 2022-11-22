@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
-import { Container } from 'semantic-ui-react';
-import NavBar from './NavBar';
 import { observer } from 'mobx-react-lite';
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { useStore } from '../stores/store';
 import LoadingComponent from './LoadingComponent';
 import ModalContainer from '../common/modals/ModalContainer';
-import Layout from './Layout';
 
 function App() {
     const { commonStore, userStore } = useStore();

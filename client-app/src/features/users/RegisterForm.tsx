@@ -7,22 +7,30 @@ import { useNavigate } from 'react-router-dom';
 import { IUserFormValues } from '../../app/models/user';
 import * as Yup from 'yup';
 
-export default observer(function LoginForm() {
+export default observer(function RegisterForm() {
     const { userStore } = useStore();
     const navigate = useNavigate();
 
     function handleSubmit(value: IUserFormValues, setErrors: Function) {
         userStore
-            .login(value)
+            .register(value)
             .then(value => navigate('/activities'))
             .catch(error => setErrors({ error: 'Invalid email or password' }));
     }
 
     return (
         <Formik
-            initialValues={{ email: '', password: '', error: null }}
+            initialValues={{
+                displayName: '',
+                username: '',
+                email: '',
+                password: '',
+                error: null,
+            }}
             onSubmit={(value, { setErrors }) => handleSubmit(value, setErrors)}
             validationSchema={Yup.object({
+                displayName: Yup.string().required(),
+                username: Yup.string().required(),
                 email: Yup.string().required().email(),
                 password: Yup.string().required(),
             })}
@@ -31,10 +39,12 @@ export default observer(function LoginForm() {
                 <Form className="ui form" onSubmit={handleSubmit} autoComplete="off">
                     <Header
                         as="h2"
-                        content="Login to Reactivities"
+                        content="Sign up to Reactivities"
                         color="teal"
                         textAlign="center"
                     />
+                    <MyTextInput name="displayName" placeholder="Display Name" />
+                    <MyTextInput name="username" placeholder="Username" />
                     <MyTextInput name="email" placeholder="Email" />
                     <MyTextInput name="password" placeholder="Password" type="password" />
 
@@ -52,7 +62,7 @@ export default observer(function LoginForm() {
 
                     <Button
                         positive
-                        content="Login"
+                        content="Register"
                         type="submit"
                         fluid
                         loading={isSubmitting}

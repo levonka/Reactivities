@@ -22,8 +22,6 @@ interface Props {
 }
 
 export default observer(function ActivityDetailedHeader({ activity }: Props) {
-    console.log('activity', activity);
-
     return (
         <Segment.Group>
             <Segment basic attached="top" style={{ padding: '0' }}>
