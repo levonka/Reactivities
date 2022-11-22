@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { IActivity } from '../models/activity';
 import { toast } from 'react-toastify';
 import { store } from '../stores/store';
@@ -11,6 +11,15 @@ const sleep = (delay: number) => {
 };
 
 axios.defaults.baseURL = 'http://localhost:5000/api/';
+
+axios.interceptors.request.use((config: AxiosRequestConfig) => {
+    const token = store.commonStore.token;
+
+    if (token) {
+        config.headers!['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+});
 
 axios.interceptors.response.use(
     async response => {
