@@ -11,17 +11,20 @@ export default observer(function LoginForm() {
     const { userStore } = useStore();
     const navigate = useNavigate();
 
-    function handleSubmit(value: IUserFormValues, setErrors: Function) {
+    function handleSubmit(value: IUserFormValues, setErrors: Function, setSubmitting: Function) {
         userStore
             .login(value)
             .then(value => navigate('/activities'))
-            .catch(error => setErrors({ error: 'Invalid email or password' }));
+            .catch(error => setErrors({ error: 'Invalid email or password' }))
+            .finally(() => setSubmitting(false));
     }
 
     return (
         <Formik
             initialValues={{ email: '', password: '', error: null }}
-            onSubmit={(value, { setErrors }) => handleSubmit(value, setErrors)}
+            onSubmit={(value, { setErrors, setSubmitting }) =>
+                handleSubmit(value, setErrors, setSubmitting)
+            }
             validationSchema={Yup.object({
                 email: Yup.string().required().email(),
                 password: Yup.string().required(),

@@ -6,16 +6,18 @@ import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 import { IUserFormValues } from '../../app/models/user';
 import * as Yup from 'yup';
+import ValidationErrors from '../errors/ValidationErrors';
 
 export default observer(function RegisterForm() {
     const { userStore } = useStore();
     const navigate = useNavigate();
 
-    function handleSubmit(value: IUserFormValues, setErrors: Function) {
+    function handleSubmit(value: IUserFormValues, setErrors: Function, setSubmitting: Function) {
         userStore
             .register(value)
             .then(value => navigate('/activities'))
-            .catch(error => setErrors({ error: 'Invalid email or password' }));
+            .catch(error => setErrors({ error }))
+            .finally(() => setSubmitting(false));
     }
 
     return (
@@ -27,7 +29,9 @@ export default observer(function RegisterForm() {
                 password: '',
                 error: null,
             }}
-            onSubmit={(value, { setErrors }) => handleSubmit(value, setErrors)}
+            onSubmit={(value, { setErrors, setSubmitting }) =>
+                handleSubmit(value, setErrors, setSubmitting)
+            }
             validationSchema={Yup.object({
                 displayName: Yup.string().required(),
                 username: Yup.string().required(),
@@ -36,7 +40,7 @@ export default observer(function RegisterForm() {
             })}
         >
             {({ handleSubmit, isValid, dirty, isSubmitting, errors }) => (
-                <Form className="ui form" onSubmit={handleSubmit} autoComplete="off">
+                <Form className="ui form error" onSubmit={handleSubmit} autoComplete="off">
                     <Header
                         as="h2"
                         content="Sign up to Reactivities"
@@ -50,14 +54,7 @@ export default observer(function RegisterForm() {
 
                     <ErrorMessage
                         name="error"
-                        render={() => (
-                            <Label
-                                style={{ marginBottom: 10 }}
-                                basic
-                                color="red"
-                                content={errors.error}
-                            />
-                        )}
+                        render={() => <ValidationErrors errors={errors.error} />}
                     />
 
                     <Button
