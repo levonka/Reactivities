@@ -6,6 +6,8 @@ import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { useStore } from '../stores/store';
 import LoadingComponent from './LoadingComponent';
+import ModalContainer from '../common/modals/ModalContainer';
+import Layout from './Layout';
 
 function App() {
     const { commonStore, userStore } = useStore();
@@ -25,13 +27,8 @@ function App() {
     return (
         <>
             <ToastContainer position="bottom-right" hideProgressBar />
-            <React.Fragment>
-                <NavBar />
-
-                <Container style={{ marginTop: '7em' }}>
-                    <Outlet />
-                </Container>
-            </React.Fragment>
+            <ModalContainer />
+            <Outlet />
         </>
     );
 }

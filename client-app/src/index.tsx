@@ -16,45 +16,46 @@ import ActivityDetails from './features/activities/details/ActivityDetails';
 import TestErrors from './features/errors/TestError';
 import NotFound from './features/errors/NotFound';
 import ServerError from './features/errors/ServerError';
-import LoginForm from './features/users/LoginForm';
+import PublicLayout from './app/layout/Layout';
 
 const router = createBrowserRouter([
-    {
-        path: '',
-        element: <HomePage />,
-    },
     {
         element: <App />,
         children: [
             {
-                path: 'activities',
-                element: <ActivityDashboard />,
+                path: '',
+                element: <HomePage />,
             },
             {
-                path: 'activities/:id',
-                element: <ActivityDetails />,
-            },
-            {
-                path: 'createActivity',
-                element: <ActivityForm />,
-            },
-            {
-                path: 'manage/:id',
-                element: <ActivityForm />,
-            },
-            {
-                path: 'errors',
-                element: <TestErrors />,
-            },
-            {
-                path: 'server-error',
-                element: <ServerError />,
+                element: <PublicLayout />,
+                children: [
+                    {
+                        path: 'activities',
+                        element: <ActivityDashboard />,
+                    },
+                    {
+                        path: 'activities/:id',
+                        element: <ActivityDetails />,
+                    },
+                    {
+                        path: 'createActivity',
+                        element: <ActivityForm />,
+                    },
+                    {
+                        path: 'manage/:id',
+                        element: <ActivityForm />,
+                    },
+                    {
+                        path: 'errors',
+                        element: <TestErrors />,
+                    },
+                    {
+                        path: 'server-error',
+                        element: <ServerError />,
+                    },
+                ],
             },
         ],
-    },
-    {
-        path: 'login',
-        element: <LoginForm />,
     },
     {
         path: '*',
