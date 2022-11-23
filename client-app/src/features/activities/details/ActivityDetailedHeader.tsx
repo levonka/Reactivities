@@ -3,6 +3,9 @@ import { IActivity } from '../../../app/models/activity';
 import { Button, Header, Image, Item, Segment } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
+import { useStore } from '../../../app/stores/store';
+import { Simulate } from 'react-dom/test-utils';
+import load = Simulate.load;
 
 const activityImageStyle = {
     filter: 'brightness(30%)',
@@ -22,6 +25,9 @@ interface Props {
 }
 
 export default observer(function ActivityDetailedHeader({ activity }: Props) {
+    const {
+        activityStore: { updateAttendance, loading },
+    } = useStore();
     return (
         <Segment.Group>
             <Segment basic attached="top" style={{ padding: '0' }}>
@@ -59,9 +65,13 @@ export default observer(function ActivityDetailedHeader({ activity }: Props) {
                         Manage Event
                     </Button>
                 ) : activity.isGoing ? (
-                    <Button>Cancel attendance</Button>
+                    <Button loading={loading} onClick={updateAttendance}>
+                        Cancel attendance
+                    </Button>
                 ) : (
-                    <Button color="teal">Join Activity</Button>
+                    <Button loading={loading} onClick={updateAttendance} color="teal">
+                        Join Activity
+                    </Button>
                 )}
             </Segment>
         </Segment.Group>
