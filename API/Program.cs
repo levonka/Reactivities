@@ -17,7 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(opt =>
 {
     // todo: эти две строчки создают новую авторизационную политику запрещающую
-    //  обычные запросы если мы это не указали обратного.
+    //  обычные запросы если мы не добавили декоратор [AllowAnonimous].
     var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
     opt.Filters.Add(new AuthorizeFilter(policy));
 });
