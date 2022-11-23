@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { IActivity } from '../models/activity';
+import { ActivityFormValues, IActivity } from '../models/activity';
 import { toast } from 'react-toastify';
 import { store } from '../stores/store';
 import { IUser, IUserFormValues } from '../models/user';
@@ -75,8 +75,9 @@ const requests = {
 const Activities = {
     list: () => requests.get<IActivity[]>('activities'),
     details: (id: string) => requests.get<IActivity>(`activities/${id}`),
-    create: (activity: IActivity) => requests.post<void>(`activities`, activity),
-    update: (activity: IActivity) => requests.put<void>(`activities/${activity.id}`, activity),
+    create: (activity: ActivityFormValues) => requests.post<void>(`activities`, activity),
+    update: (activity: ActivityFormValues) =>
+        requests.put<void>(`activities/${activity.id}`, activity),
     delete: (id: string) => requests.delete<void>(`activities/${id}`),
     attend: (id: string) => requests.post<void>(`activities/${id}/attend`, {}),
 };

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useStore } from '../../../app/stores/store';
 import { observer } from 'mobx-react-lite';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { IActivity } from '../../../app/models/activity';
+import { ActivityFormValues, IActivity } from '../../../app/models/activity';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
@@ -20,15 +20,7 @@ export default observer(function ActivityForm() {
     const { createActivity, updateActivity, loading, loadActivity, loadingInitial } = activityStore;
     const { id } = useParams<{ id: string }>();
 
-    const [activity, setActivity] = useState<IActivity>({
-        id: '',
-        title: '',
-        category: '',
-        description: '',
-        date: null,
-        city: '',
-        venue: '',
-    });
+    const [activity, setActivity] = useState<ActivityFormValues>(new ActivityFormValues());
 
     const validationSchema = Yup.object({
         title: Yup.string().required('The activity title is required'),
@@ -41,12 +33,12 @@ export default observer(function ActivityForm() {
 
     useEffect(() => {
         if (id) {
-            loadActivity(id).then(activity => setActivity(activity as IActivity));
+            loadActivity(id).then(activity => setActivity(new ActivityFormValues(activity)));
         }
     }, [id, loadActivity]);
 
-    function handleFormSubmit(activity: IActivity) {
-        if (activity.id.length === 0) {
+    function handleFormSubmit(activity: ActivityFormValues) {
+        if (!activity.id) {
             const newActivity = { ...activity, id: uuid() };
 
             createActivity(newActivity).then(() => navigate(`/activities/${newActivity.id}`));
@@ -95,7 +87,7 @@ export default observer(function ActivityForm() {
                             positive
                             type="submit"
                             content="Submit"
-                            loading={loading}
+                            loading={isSubmitting}
                         />
                         <Button
                             as={Link}
