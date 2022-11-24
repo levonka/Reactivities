@@ -17,63 +17,29 @@ import TestErrors from './features/errors/TestError';
 import NotFound from './features/errors/NotFound';
 import ServerError from './features/errors/ServerError';
 import PublicLayout from './app/layout/Layout';
+import ProfilePage from './features/profiles/ProfilePage';
 
 const router = createBrowserRouter([
     {
         element: <App />,
         children: [
-            {
-                path: '',
-                element: <HomePage />,
-            },
+            { path: '', element: <HomePage /> },
             {
                 element: <PublicLayout />,
                 children: [
-                    {
-                        path: 'activities',
-                        element: <ActivityDashboard />,
-                    },
-                    {
-                        path: 'activities/:id',
-                        element: <ActivityDetails />,
-                    },
-                    {
-                        path: 'createActivity',
-                        element: <ActivityForm />,
-                    },
-                    {
-                        path: 'manage/:id',
-                        element: <ActivityForm />,
-                    },
-                    {
-                        path: 'errors',
-                        element: <TestErrors />,
-                    },
-                    {
-                        path: 'server-error',
-                        element: <ServerError />,
-                    },
+                    { path: 'activities', element: <ActivityDashboard /> },
+                    { path: 'activities/:id', element: <ActivityDetails /> },
+                    { path: 'createActivity', element: <ActivityForm /> },
+                    { path: 'profiles/:username', element: <ProfilePage /> },
+                    { path: 'manage/:id', element: <ActivityForm /> },
+                    { path: 'errors', element: <TestErrors /> },
+                    { path: 'server-error', element: <ServerError /> },
                 ],
             },
-            {
-                path: '*',
-                element: <NotFound />,
-            },
+            { path: '*', element: <NotFound /> },
         ],
     },
 ]);
-/*
-const router = createBrowserRouter(
-    createRoutesFromElements(
-        <Route path="/" element={<App />}>
-            <Route path="" element={<HomePage />} />
-            <Route path="activities" element={<ActivityDashboard />} />
-            <Route path="activities/:id" element={<ActivityDetails />} />
-            <Route path="createActivity" element={<ActivityForm />} />
-            <Route path="manage/:id" element={<ActivityForm />} />
-        </Route>
-    )
-);*/
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
